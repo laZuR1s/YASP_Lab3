@@ -107,11 +107,112 @@ public:
 
 	void remove_by_value(const X& value)
 	{
-		bool isDeleted=false;
-		while (head && head->data == value && !isDeleted)
+		if (!head)
+			return;
+		if (head && head->data == value)
 		{
-
+			Node<X>* to_delete = head;
+			head = head->next;
+			delete to_delete;
+			--size;
+			return;
 		}
 
+		Node<X>* current = head;
+		while (current->next)
+		{
+			if (current->next->data == value)
+			{
+				Node<X>* to_delete = current->next;
+				current->next = current->next->next;
+				if (to_delete == tail)
+				{
+					tail = current;
+				}
+				delete to_delete;
+				--size;
+				return;
+			}
+			current = current->next;
+		}
+
+	}
+
+	void replace_all(const X& old_value, const X& new_value) {
+		Node<X>* current = head;
+		while (current) {
+			if (current->data == old_value) {
+				current->data = new_value;
+			}
+			current = current->next;
+		}
+	}
+
+	void remove_consecutive_duplicates() {
+		if (!head || !head->next) return;
+
+		Node<X>* current = head;
+
+		while (current && current->next)
+		{
+			if (current->data == current->next->data)
+			{
+				Node<X>* to_delete = current->next;
+				current->next = current->next->next;
+
+				if (to_delete == tail)
+					tail = current;
+				delete to_delete;
+				--size;
+			}
+			else current = current->next;
+
+		}
+		
+	}
+
+	void load_from_file(const std::string& filename) {
+		std::ifstream file(filename); 
+		if (!file) {
+			std::cerr << "Ошибка открытия файла: " << filename << std::endl;
+			return;
+		}
+
+		clear(); 
+
+		X value;
+		while (file >> value) { 
+			add(value); 
+		}
+
+		file.close(); 
+	}
+
+	void add_to_start(const X& value) {
+		Node<X>* new_node = new Node<X>(value);
+		new_node->next = head; 
+		head = new_node; 
+
+		if (!tail) { 
+			tail = new_node;
+		}
+
+		++size; 
+	}
+
+	void save_to_file(const std::string& filename) const {
+		std::ofstream file(filename); 
+		if (!file) {
+			std::cerr << "Ошибка открытия файла: " << filename << std::endl;
+			return;
+		}
+
+		Node<X>* current = head;
+		while (current) { 
+			file << current->data << "\n"; 
+			current = current->next; 
+		}
+
+		file.close(); 
 	}
 };
