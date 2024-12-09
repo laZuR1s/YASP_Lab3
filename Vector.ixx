@@ -184,7 +184,6 @@ public:
 		while (file >> value) { 
 			add(value); 
 		}
-
 		file.close(); 
 	}
 

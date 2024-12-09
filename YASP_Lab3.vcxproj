@@ -128,11 +128,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Angle.ixx" />
     <ClCompile Include="Vector.ixx" />
     <ClCompile Include="YASP_Lab3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt" />
+    <Text Include="input_ang.txt" />
+    <Text Include="Input_str.txt" />
     <Text Include="output.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
