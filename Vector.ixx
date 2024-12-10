@@ -52,7 +52,7 @@ public:
 		Node<X>* current = head;
 		while (current)
 		{
-			out << current->data << ' ';
+			out << current->data<<'\n';
 			current = current->next;
 		}
 		out << '\n';
@@ -184,6 +184,7 @@ public:
 		while (file >> value) { 
 			add(value); 
 		}
+
 		file.close(); 
 	}
 
